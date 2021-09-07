@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 
 const Pokemon = (props) => {
     const [state, setState] = useState(0);
@@ -15,15 +16,13 @@ const Pokemon = (props) => {
     useEffect(() => {
         console.log("Hello")
         if(click.clicked === true){
-            fetch('https://pokeapi.co/api/v2/pokemon?limit=808&offset=0')
-                .then(response => {
-                    return response.json()
-                })
-                .then(response => {
-                    setState({
-                        pokemon: response.results
+            axios.get('https://pokeapi.co/api/v2/pokemon?limit=808&offset=0')
+                    .then(response => {
+                        // console.log(response)
+                        setState({
+                            pokemon: response.data.results
+                        })
                     })
-                })
         }
     }, [click.clicked]);
     return (
